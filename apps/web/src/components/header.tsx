@@ -1,5 +1,12 @@
 "use client";
 import Link from "next/link";
+import {
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from "@clerk/nextjs";
 
 import { ModeToggle } from "./mode-toggle";
 
@@ -22,6 +29,28 @@ export default function Header() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <SignedOut>
+            <SignInButton mode="modal">
+              <button className="px-3 py-1.5 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
+                Sign In
+              </button>
+            </SignInButton>
+            <SignUpButton mode="modal">
+              <button className="px-3 py-1.5 text-sm font-medium rounded-md bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
+                Sign Up
+              </button>
+            </SignUpButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton
+              afterSignOutUrl="/"
+              appearance={{
+                elements: {
+                  avatarBox: "h-8 w-8",
+                },
+              }}
+            />
+          </SignedIn>
           <ModeToggle />
         </div>
       </div>
